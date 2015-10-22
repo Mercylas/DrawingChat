@@ -8,7 +8,7 @@ to load npm modules listed in package.json file
 var http = require('http');
 var WebSocketServer = require('ws').Server;
 var ecStatic = require('ecstatic');
-io = require('socket.io').listen(4000);;
+io = require('socket.io').listen(4000);
 
 //static file server
 var server = http.createServer(ecStatic({root: __dirname + '/www'}));

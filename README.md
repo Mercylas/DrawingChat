@@ -1,4 +1,0 @@
-# DrawingChat
-# DrawingChat
-# DrawingChat
-# DrawingChat

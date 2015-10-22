@@ -8,6 +8,7 @@ to load npm modules listed in package.json file
 var http = require('http');
 var WebSocketServer = require('ws').Server;
 var ecStatic = require('ecstatic');
+var textParse = require('textparse');
 io = require('socket.io').listen(4000);
 
 //static file server
@@ -24,6 +25,7 @@ wss.on('connection', function(ws) {
 
 function broadcast(msg) {
   wss.clients.forEach(function(client) {
+    msg = textParse.parseText(msg);
     client.send(msg);
   });
 }

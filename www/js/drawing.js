@@ -1,6 +1,5 @@
 /*global $, io*/
-/*jslint sloppy:true,plusplus:true,vars:true,white:true,nomen:true,devel:true,browser:true,node:true,undef:true*/
-/**
+/*
  * Main Application Function
  * @param {Object} options
  */
@@ -464,7 +463,7 @@ DrawingPad = function(options) {
 		$(selector).append(_buildToolBar); //add tool bar to DOM
 		
 		//register socket listeners
-		drawingPad.thisObj.socket = io.connect("http://192.168.0.33:4000");
+		drawingPad.thisObj.socket = io.connect("http://localhost:4000");
 	
 	    drawingPad.thisObj.socket.on('setUserList', function(data) {
 			return setUserList(data); //show pop up list

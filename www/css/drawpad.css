@@ -103,7 +103,14 @@ body {
 .alert{
 	padding: 8px 21px 8px 15px;
 }
-.messages{
-	top: 500px;
-	left: 10px;
+#chat{
+	position: relative;
+	color: red;
+	font-size: 150%;
+	top: 530px;
+	left: 20px;
+}
+#messages{
+	color: black;
+	font-size: 100%;
 }

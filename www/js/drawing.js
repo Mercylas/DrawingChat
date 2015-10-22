@@ -1,11 +1,10 @@
-var ws = new WebSocket('ws://' + window.document.location.host);
-var username;
 /*global $, io*/
 /*jslint sloppy:true,plusplus:true,vars:true,white:true,nomen:true,devel:true,browser:true,node:true,undef:true*/
 /**
  * Main Application Function
  * @param {Object} options
  */
+ var username;
 DrawingPad = function(options) { 
 	"use strict";
 	var defaults = {
@@ -18,7 +17,7 @@ DrawingPad = function(options) {
 		"share",
 		"draw",
 		"line",
-		"trash"
+		"trash",
 	],
 	settings = $.extend(defaults, options), 
 	drawingPad={};
@@ -465,7 +464,7 @@ DrawingPad = function(options) {
 		$(selector).append(_buildToolBar); //add tool bar to DOM
 		
 		//register socket listeners
-		drawingPad.thisObj.socket = io.connect("http://192.168.0.11:4000");
+		drawingPad.thisObj.socket = io.connect("http://192.168.0.33:4000");
 	
 	    drawingPad.thisObj.socket.on('setUserList', function(data) {
 			return setUserList(data); //show pop up list
@@ -506,23 +505,29 @@ DrawingPad = function(options) {
 		$('.userNameModal').modal("show");
 	};
 };
-
-
-      ws.onmessage = function(message) {
-        var msgDiv = document.createElement('div');
-        msgDiv.innerHTML = message.data;
-        document.getElementById('messages').appendChild(msgDiv);
-      };
-      
-      function sendMessage() {
-          var message = username + ": " + document.getElementById('msgBox').value;
-          ws.send(message);
-          document.getElementById('msgBox').value = '';
-      };
-	  function handleKeyPress(event){
-		  if(event.keyCode == 13){
-			  sendMessage();
-			  return false; //don't propogate event
-		  }
-	  };
-
+var ws = new WebSocket('ws://' + window.document.location.host);
+//Chat Functions
+	//Recieved
+    ws.onmessage = function(message) {
+    	var msgDiv = document.createElement('div');
+    	msgDiv.innerHTML = message.data;
+    	document.getElementById('messages').appendChild(msgDiv);
+    };
+    //Sent
+    function sendMessage() {
+        var message = username + ": " + document.getElementById('msgBox').value;
+        ws.send(message);
+        document.getElementById('msgBox').value = '';
+    };
+    //Enter Key
+	function handleKeyPress(event){
+		if(event.keyCode == 13){
+			sendMessage();
+			return false; //don't propogate event
+		}
+	};
+	//Clear
+	function clearChat()
+	{
+   		$("#messages").html("");
+	}
